@@ -11,3 +11,8 @@ services:
       - "8080:80"
     depends_on:
       - backend
+  portfolio:
+    build:
+      context: ./portfolio
+    ports:
+      - "8081:80"

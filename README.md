@@ -6,7 +6,8 @@
 docker compose up --build
 ```
 
-- Frontend: http://localhost:8080
+- Frontend app: http://localhost:8080
+- Portfolio: http://localhost:8081
 - Backend: http://localhost:3000/api/health
 
 ## Local development (optional)
@@ -17,4 +18,4 @@ npm install
 npm start
 ```
 
-Open `frontend/index.html` in a browser or run the containers for the proxy setup.
+Open `frontend/index.html` or `portfolio/index.html` in a browser, or run the containers for the proxy setup.
