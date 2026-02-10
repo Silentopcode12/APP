@@ -3,42 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shresth | Calculator Stack</title>
+    <title>Shresth | Signal Calculator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="background-glow"></div>
-    <header class="hero">
-      <div class="hero__intro">
-        <p class="eyebrow">frontend + backend calculator</p>
+    <div class="gridlines"></div>
+    <div class="glow-orb"></div>
+
+    <header class="topbar">
+      <div class="logo">SIGNAL//CALC</div>
+      <div class="status" id="api-status" data-state="loading">
+        <span class="status__dot"></span>
+        <span class="status__text">Checking API...</span>
+        <span class="status__time" id="api-time">--</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="hero">
+        <p class="eyebrow">interactive frontend + backend compute</p>
         <h1>
           <span class="name">SHRESTH</span>
-          builds sharp, fast interfaces.
+          builds visual systems that feel alive.
         </h1>
         <p class="lead">
-          A bold UI wired to a real backend. Every calculation below is computed on
-          the server and returned instantly.
+          Every number you punch in gets computed on the server. Crisp UI, fast response,
+          and a keypad that feels like hardware.
         </p>
-        <div class="status" id="api-status" data-state="loading">
-          <span class="dot"></span>
-          <span class="status__text">Checking API...</span>
-          <span class="status__time" id="api-time">--</span>
+        <div class="chip-row">
+          <span class="chip">Live API</span>
+          <span class="chip">Keyboard ready</span>
+          <span class="chip">Animated UI</span>
         </div>
-        <div class="hint">
-          <p>Tip: click the keypad or use your keyboard. Press Enter to calculate.</p>
-        </div>
-      </div>
-      <div class="hero__panel">
+      </section>
+
+      <section class="panel">
         <div class="panel__header">
-          <p>Backend Calculator</p>
-          <span class="panel__badge">Live</span>
+          <div>
+            <p class="panel__title">Calculator Core</p>
+            <p class="panel__subtitle">Backend-powered math engine</p>
+          </div>
+          <div class="panel__badge">v2</div>
         </div>
+
+        <div class="display">
+          <p class="display__label">Result</p>
+          <p class="display__value" id="calc-result">--</p>
+          <p class="display__expression" id="calc-expression">Enter numbers to calculate.</p>
+          <p class="display__error" id="calc-error" role="alert"></p>
+        </div>
+
         <form class="calculator" id="calc-form">
           <label class="field">
             <span>First number</span>
@@ -59,6 +79,7 @@
           </label>
           <button class="cta" type="submit" id="calc-btn">Calculate</button>
         </form>
+
         <div class="keypad" id="keypad">
           <button type="button" data-key="7">7</button>
           <button type="button" data-key="8">8</button>
@@ -73,34 +94,28 @@
           <button type="button" data-key="3">3</button>
           <button type="button" data-op="sub">−</button>
           <button type="button" data-key="0" class="keypad__wide">0</button>
-          <button type="button" data-key="." >.</button>
+          <button type="button" data-key=".">.</button>
           <button type="button" data-op="add">+</button>
           <button type="button" data-action="back" class="keypad__action">Del</button>
           <button type="button" data-action="swap" class="keypad__action">Swap</button>
           <button type="button" data-action="clear" class="keypad__action">Clear</button>
           <button type="submit" class="keypad__cta">=</button>
         </div>
-        <div class="result" aria-live="polite">
-          <p class="result__label">Result</p>
-          <p class="result__value" id="calc-result">--</p>
-          <p class="result__expression" id="calc-expression">Enter numbers to calculate.</p>
-          <p class="result__error" id="calc-error" role="alert"></p>
-        </div>
-      </div>
-    </header>
+      </section>
+    </main>
 
-    <section class="details">
-      <div class="detail-card">
+    <section class="info">
+      <div class="info__card">
         <h3>Frontend</h3>
-        <p>Expressive UI, smooth motion, and layout built for speed.</p>
+        <p>Custom layout, glow layers, and keypad interactions.</p>
       </div>
-      <div class="detail-card">
+      <div class="info__card">
         <h3>Backend</h3>
-        <p>Express API validates input and returns precise calculations.</p>
+        <p>Express API validates inputs and returns precise results.</p>
       </div>
-      <div class="detail-card">
-        <h3>Stack</h3>
-        <p>Docker-ready, deployment friendly, and minimal on purpose.</p>
+      <div class="info__card">
+        <h3>Deploy</h3>
+        <p>Nginx + Docker Compose for a simple, portable stack.</p>
       </div>
     </section>
 
