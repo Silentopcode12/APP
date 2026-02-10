@@ -30,6 +30,9 @@
           <span class="status__text">Checking API...</span>
           <span class="status__time" id="api-time">--</span>
         </div>
+        <div class="hint">
+          <p>Tip: click the keypad or use your keyboard. Press Enter to calculate.</p>
+        </div>
       </div>
       <div class="hero__panel">
         <div class="panel__header">
@@ -39,7 +42,7 @@
         <form class="calculator" id="calc-form">
           <label class="field">
             <span>First number</span>
-            <input type="number" step="any" id="value-a" placeholder="24" required />
+            <input type="text" inputmode="decimal" id="value-a" placeholder="24" required />
           </label>
           <div class="operator">
             <select id="op" aria-label="Operation">
@@ -52,10 +55,31 @@
           </div>
           <label class="field">
             <span>Second number</span>
-            <input type="number" step="any" id="value-b" placeholder="6" required />
+            <input type="text" inputmode="decimal" id="value-b" placeholder="6" required />
           </label>
           <button class="cta" type="submit" id="calc-btn">Calculate</button>
         </form>
+        <div class="keypad" id="keypad">
+          <button type="button" data-key="7">7</button>
+          <button type="button" data-key="8">8</button>
+          <button type="button" data-key="9">9</button>
+          <button type="button" data-op="div">÷</button>
+          <button type="button" data-key="4">4</button>
+          <button type="button" data-key="5">5</button>
+          <button type="button" data-key="6">6</button>
+          <button type="button" data-op="mul">×</button>
+          <button type="button" data-key="1">1</button>
+          <button type="button" data-key="2">2</button>
+          <button type="button" data-key="3">3</button>
+          <button type="button" data-op="sub">−</button>
+          <button type="button" data-key="0" class="keypad__wide">0</button>
+          <button type="button" data-key="." >.</button>
+          <button type="button" data-op="add">+</button>
+          <button type="button" data-action="back" class="keypad__action">Del</button>
+          <button type="button" data-action="swap" class="keypad__action">Swap</button>
+          <button type="button" data-action="clear" class="keypad__action">Clear</button>
+          <button type="submit" class="keypad__cta">=</button>
+        </div>
         <div class="result" aria-live="polite">
           <p class="result__label">Result</p>
           <p class="result__value" id="calc-result">--</p>
