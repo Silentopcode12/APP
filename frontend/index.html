@@ -3,48 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple Full-Stack Starter</title>
+    <title>Shresth | Calculator Stack</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="noise"></div>
+    <div class="background-glow"></div>
     <header class="hero">
-      <div class="hero__content">
-        <p class="eyebrow">/ simple stack /</p>
-        <h1>Frontend + Backend, wired to run anywhere.</h1>
+      <div class="hero__intro">
+        <p class="eyebrow">frontend + backend calculator</p>
+        <h1>
+          <span class="name">SHRESTH</span>
+          builds sharp, fast interfaces.
+        </h1>
         <p class="lead">
-          This tiny site is served by Nginx, powered by an Express API, and
-          orchestrated with Docker Compose.
+          A bold UI wired to a real backend. Every calculation below is computed on
+          the server and returned instantly.
         </p>
-        <div class="cta-row">
-          <button class="cta" id="refresh">Fetch API</button>
-          <span class="badge" id="status">Waiting for API</span>
+        <div class="status" id="api-status" data-state="loading">
+          <span class="dot"></span>
+          <span class="status__text">Checking API...</span>
+          <span class="status__time" id="api-time">--</span>
         </div>
       </div>
-      <div class="hero__card">
-        <div class="card__header">API Response</div>
-        <div class="card__body">
-          <p class="card__title" id="api-title">-</p>
-          <p class="card__message" id="api-message">-</p>
+      <div class="hero__panel">
+        <div class="panel__header">
+          <p>Backend Calculator</p>
+          <span class="panel__badge">Live</span>
+        </div>
+        <form class="calculator" id="calc-form">
+          <label class="field">
+            <span>First number</span>
+            <input type="number" step="any" id="value-a" placeholder="24" required />
+          </label>
+          <div class="operator">
+            <select id="op" aria-label="Operation">
+              <option value="add">+</option>
+              <option value="sub">−</option>
+              <option value="mul">×</option>
+              <option value="div">÷</option>
+            </select>
+            <div class="operator__symbol" id="op-symbol">+</div>
+          </div>
+          <label class="field">
+            <span>Second number</span>
+            <input type="number" step="any" id="value-b" placeholder="6" required />
+          </label>
+          <button class="cta" type="submit" id="calc-btn">Calculate</button>
+        </form>
+        <div class="result" aria-live="polite">
+          <p class="result__label">Result</p>
+          <p class="result__value" id="calc-result">--</p>
+          <p class="result__expression" id="calc-expression">Enter numbers to calculate.</p>
+          <p class="result__error" id="calc-error" role="alert"></p>
         </div>
       </div>
     </header>
 
-    <section class="grid">
-      <div class="tile">
+    <section class="details">
+      <div class="detail-card">
         <h3>Frontend</h3>
-        <p>Static assets served through Nginx with a lightweight proxy to the API.</p>
+        <p>Expressive UI, smooth motion, and layout built for speed.</p>
       </div>
-      <div class="tile">
+      <div class="detail-card">
         <h3>Backend</h3>
-        <p>Express app with JSON endpoints, ready for expansion.</p>
+        <p>Express API validates input and returns precise calculations.</p>
       </div>
-      <div class="tile">
-        <h3>Docker</h3>
-        <p>One compose file to bring up the whole stack in seconds.</p>
+      <div class="detail-card">
+        <h3>Stack</h3>
+        <p>Docker-ready, deployment friendly, and minimal on purpose.</p>
       </div>
     </section>
 

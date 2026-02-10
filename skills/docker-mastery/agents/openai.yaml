@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docker Mastery"
+  short_description: "Practice labs and guidance for mastering Docker"
+  default_prompt: "Guide me through Docker practice to mastery"

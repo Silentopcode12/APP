@@ -13,8 +13,50 @@ app.get("/api/health", (req, res) => {
 
 app.get("/api/message", (req, res) => {
   res.json({
-    title: "Simple Full-Stack Starter",
-    message: "Frontend served by Nginx. Backend powered by Express.",
+    title: "Backend Calculator",
+    message: "POST /api/calculate with numbers and an operation.",
+  });
+});
+
+app.post("/api/calculate", (req, res) => {
+  const { a, b, op } = req.body || {};
+  const numA = Number(a);
+  const numB = Number(b);
+
+  if (!Number.isFinite(numA) || !Number.isFinite(numB)) {
+    return res.status(400).json({ error: "Both numbers are required." });
+  }
+
+  let result = 0;
+  let symbol = "+";
+
+  switch (op) {
+    case "add":
+      result = numA + numB;
+      symbol = "+";
+      break;
+    case "sub":
+      result = numA - numB;
+      symbol = "-";
+      break;
+    case "mul":
+      result = numA * numB;
+      symbol = "*";
+      break;
+    case "div":
+      if (numB === 0) {
+        return res.status(400).json({ error: "Division by zero is not allowed." });
+      }
+      result = numA / numB;
+      symbol = "/";
+      break;
+    default:
+      return res.status(400).json({ error: "Unknown operation." });
+  }
+
+  return res.json({
+    result,
+    expression: `${numA} ${symbol} ${numB}`,
   });
 });
 
