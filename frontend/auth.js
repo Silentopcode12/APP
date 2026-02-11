@@ -7,6 +7,18 @@ const setMessage = (el, text, ok = true) => {
   el.dataset.state = ok ? "ok" : "error";
 };
 
+const logLogin = async (email) => {
+  try {
+    await fetch("/api/login-log", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+  } catch (error) {
+    // best-effort logging
+  }
+};
+
 if (registerForm) {
   registerForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -22,6 +34,7 @@ if (registerForm) {
 
     const user = { name, email, password };
     localStorage.setItem("demoUser", JSON.stringify(user));
+    logLogin(email);
     setMessage(messageEl, "Registered! You can now log in.", true);
     registerForm.reset();
   });
@@ -43,6 +56,7 @@ if (loginForm) {
     const user = JSON.parse(stored);
     if (user.email === email && user.password === password) {
       setMessage(messageEl, `Welcome back, ${user.name}!`, true);
+      logLogin(email);
       loginForm.reset();
     } else {
       setMessage(messageEl, "Invalid email or password.", false);

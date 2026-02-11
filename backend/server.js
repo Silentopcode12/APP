@@ -1,11 +1,31 @@
 import express from "express";
 import cors from "cors";
+import pg from "pg";
 
 const app = express();
 const port = process.env.PORT || 3000;
+const { Pool } = pg;
+
+const pool = new Pool({
+  host: process.env.DB_HOST || "localhost",
+  port: Number(process.env.DB_PORT || 5432),
+  user: process.env.DB_USER || "appuser",
+  password: process.env.DB_PASSWORD || "apppass",
+  database: process.env.DB_NAME || "appdb",
+});
 
 app.use(cors());
 app.use(express.json());
+
+const initDb = async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS logins (
+      id SERIAL PRIMARY KEY,
+      email TEXT NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+};
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", time: new Date().toISOString() });
@@ -60,6 +80,45 @@ app.post("/api/calculate", (req, res) => {
   });
 });
 
+app.get("/api/db-health", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW() AS now");
+    res.json({ status: "ok", time: result.rows[0].now });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: "Database unavailable." });
+  }
+});
+
+app.post("/api/login-log", async (req, res) => {
+  try {
+    const { email } = req.body || {};
+    if (!email) {
+      return res.status(400).json({ error: "Email is required." });
+    }
+    await pool.query("INSERT INTO logins (email) VALUES ($1)", [email]);
+    return res.json({ status: "ok" });
+  } catch (error) {
+    return res.status(500).json({ error: "Unable to write to database." });
+  }
+});
+
+app.get("/api/login-log", async (req, res) => {
+  try {
+    const limit = Math.min(Number(req.query.limit || 5), 20);
+    const result = await pool.query(
+      "SELECT email, created_at FROM logins ORDER BY created_at DESC LIMIT $1",
+      [limit]
+    );
+    return res.json({ status: "ok", items: result.rows });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: "Unable to read from database." });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Backend listening on port ${port}`);
+});
+
+initDb().catch((error) => {
+  console.error("Database init failed:", error.message);
 });

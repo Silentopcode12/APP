@@ -17,6 +17,9 @@ const chatbotClose = document.getElementById("chatbot-close");
 const chatbotForm = document.getElementById("chatbot-form");
 const chatbotInput = document.getElementById("chatbot-input");
 const chatbotMessages = document.getElementById("chatbot-messages");
+const dbStatus = document.getElementById("db-status");
+const dbTime = document.getElementById("db-time");
+const dbLogins = document.getElementById("db-logins");
 
 const opSymbols = {
   add: "+",
@@ -50,6 +53,46 @@ const checkHealth = async () => {
     setStatus("ok", "API online", formatTime(data.time));
   } catch (error) {
     setStatus("error", "API offline", "--");
+  }
+};
+
+const checkDb = async () => {
+  if (!dbStatus) return;
+  dbStatus.textContent = "Checking DB connection...";
+  try {
+    const response = await fetch("/api/db-health");
+    if (!response.ok) throw new Error("DB offline");
+    const data = await response.json();
+    dbStatus.textContent = "DB connected";
+    if (dbTime) {
+      dbTime.textContent = new Date(data.time).toLocaleString();
+    }
+  } catch (error) {
+    dbStatus.textContent = "DB offline";
+    if (dbTime) dbTime.textContent = "--";
+  }
+};
+
+const loadLogins = async () => {
+  if (!dbLogins) return;
+  dbLogins.innerHTML = "<li>Loading...</li>";
+  try {
+    const response = await fetch("/api/login-log?limit=5");
+    if (!response.ok) throw new Error("No data");
+    const data = await response.json();
+    if (!data.items || data.items.length === 0) {
+      dbLogins.innerHTML = "<li>No logins yet.</li>";
+      return;
+    }
+    dbLogins.innerHTML = "";
+    data.items.forEach((item) => {
+      const li = document.createElement("li");
+      const when = new Date(item.created_at).toLocaleString();
+      li.textContent = `${item.email} · ${when}`;
+      dbLogins.appendChild(li);
+    });
+  } catch (error) {
+    dbLogins.innerHTML = "<li>Unable to load logins.</li>";
   }
 };
 
@@ -188,6 +231,8 @@ window.addEventListener("keydown", (event) => {
 
 updateSymbol();
 checkHealth();
+checkDb();
+loadLogins();
 
 const addChatMessage = (text, type) => {
   if (!chatbotMessages) return;
