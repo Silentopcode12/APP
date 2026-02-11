@@ -11,6 +11,12 @@ const keypad = document.getElementById("keypad");
 const resultEl = document.getElementById("calc-result");
 const expressionEl = document.getElementById("calc-expression");
 const errorEl = document.getElementById("calc-error");
+const chatbotToggle = document.getElementById("chatbot-toggle");
+const chatbotPanel = document.getElementById("chatbot-panel");
+const chatbotClose = document.getElementById("chatbot-close");
+const chatbotForm = document.getElementById("chatbot-form");
+const chatbotInput = document.getElementById("chatbot-input");
+const chatbotMessages = document.getElementById("chatbot-messages");
 
 const opSymbols = {
   add: "+",
@@ -182,3 +188,49 @@ window.addEventListener("keydown", (event) => {
 
 updateSymbol();
 checkHealth();
+
+const addChatMessage = (text, type) => {
+  if (!chatbotMessages) return;
+  const bubble = document.createElement("div");
+  bubble.className = `chatbot__message ${type}`;
+  bubble.textContent = text;
+  chatbotMessages.appendChild(bubble);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+};
+
+const getBotReply = (text) => {
+  const msg = text.toLowerCase();
+  if (msg.includes("hello") || msg.includes("hi") || msg.includes("hey")) {
+    return "Hey! I'm Shresth's bot. How can I help?";
+  }
+  if (msg.includes("help")) {
+    return "You can use the calculator or ask me to say hello.";
+  }
+  return "I can respond to 'hi' or 'hello' for now.";
+};
+
+if (chatbotToggle && chatbotPanel) {
+  chatbotToggle.addEventListener("click", () => {
+    chatbotPanel.classList.add("is-open");
+    chatbotInput?.focus();
+  });
+}
+
+if (chatbotClose && chatbotPanel) {
+  chatbotClose.addEventListener("click", () => {
+    chatbotPanel.classList.remove("is-open");
+  });
+}
+
+if (chatbotForm) {
+  chatbotForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const text = chatbotInput.value.trim();
+    if (!text) return;
+    addChatMessage(text, "user");
+    chatbotInput.value = "";
+    setTimeout(() => {
+      addChatMessage(getBotReply(text), "bot");
+    }, 300);
+  });
+}

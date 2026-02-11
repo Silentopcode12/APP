@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -125,6 +126,26 @@
         <p>Nginx + Docker Compose for a simple, portable stack.</p>
       </div>
     </section>
+
+    <div class="chatbot" id="chatbot">
+      <button class="chatbot__toggle" id="chatbot-toggle" aria-label="Open chatbot">Chat</button>
+      <div class="chatbot__panel" id="chatbot-panel" aria-live="polite">
+        <div class="chatbot__header">
+          <div>
+            <p class="chatbot__title">Signal Bot</p>
+            <p class="chatbot__subtitle">Say hello 👋</p>
+          </div>
+          <button class="chatbot__close" id="chatbot-close" aria-label="Close chatbot">×</button>
+        </div>
+        <div class="chatbot__messages" id="chatbot-messages">
+          <div class="chatbot__message bot">Hi, I am Shresth's bot. Say “hello” or “hi”.</div>
+        </div>
+        <form class="chatbot__form" id="chatbot-form">
+          <input type="text" id="chatbot-input" placeholder="Type a message..." required />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
 
     <script src="app.js"></script>
   </body>

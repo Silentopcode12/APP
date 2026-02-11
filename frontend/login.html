@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -25,21 +26,24 @@
       <section class="auth__panel">
         <h1>Welcome back</h1>
         <p class="lead">Sign in to continue your workflow.</p>
-        <form class="auth__form">
+        <form class="auth__form" id="login-form">
           <label class="field">
             <span>Email</span>
-            <input type="email" placeholder="you@domain.com" required />
+            <input type="email" id="login-email" placeholder="you@domain.com" required />
           </label>
           <label class="field">
             <span>Password</span>
-            <input type="password" placeholder="••••••••" required />
+            <input type="password" id="login-password" placeholder="••••••••" required />
           </label>
           <button class="cta" type="submit">Login</button>
         </form>
+        <p class="auth__message" id="login-message"></p>
         <p class="auth__switch">
           New here? <a href="register.html">Create an account</a>
         </p>
       </section>
     </main>
+
+    <script src="auth.js"></script>
   </body>
 </html>
