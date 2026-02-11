@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database | Shresth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="gridlines"></div>
+    <div class="glow-orb"></div>
+
+    <header class="topbar">
+      <div class="logo">SIGNAL//DB</div>
+      <div class="topbar__right">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="login.html">Login</a>
+        <a class="nav-link nav-link--primary" href="register.html">Register</a>
+      </div>
+    </header>
+
+    <main class="db">
+      <section class="db__hero">
+        <p class="eyebrow">database observability</p>
+        <h1>Database Console</h1>
+        <p class="lead">Monitor connectivity and recent activity from your live Postgres instance.</p>
+        <div class="db__status" id="db-status">Checking DB connection...</div>
+        <p class="db__time" id="db-time">--</p>
+      </section>
+
+      <section class="db__panel">
+        <div class="db__panel-header">
+          <div>
+            <p class="panel__title">Recent Logins</p>
+            <p class="panel__subtitle">Latest recorded activity</p>
+          </div>
+          <button class="cta" id="db-refresh">Refresh</button>
+        </div>
+        <div class="db__table">
+          <div class="db__row db__row--head">
+            <span>Email</span>
+            <span>Time</span>
+          </div>
+          <div id="db-rows">
+            <div class="db__row"><span>Loading...</span><span>--</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="db.js"></script>
+  </body>
+</html>
