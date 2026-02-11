@@ -143,6 +143,16 @@ h1 {
   max-width: 40ch;
 }
 
+.bio {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 44ch;
+  border-left: 2px solid rgba(125, 249, 255, 0.4);
+  padding-left: 1rem;
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
